@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GIF생성기</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="top">
+    <h1>GIF생성기</h1>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__card">
+        <h2 id="hero-title">Video를 GIF로 변환</h2>
+        <p class="hero__sub">동영상을 애니로</p>
+        <svg class="hero__wave" viewBox="0 0 600 48" aria-hidden="true">
+          <path d="M0 30 Q75 6 150 30 T300 30 T450 30 T600 30 V48 H0 Z"></path>
+          <path d="M0 36 Q75 18 150 36 T300 36 T450 36 T600 36 V48 H0 Z"></path>
+        </svg>
+      </div>
+      <nav class="jumps" aria-label="작업 영역 이동">
+        <a href="#videos">동영상 작업</a>
+        <a href="#images">이미지로 GIF</a>
+        <a href="#gifs">GIF를 동영상으로</a>
+        <a href="#done">완료된 파일</a>
+      </nav>
+    </section>
+
+    <section class="format-panel" aria-labelledby="format-title">
+      <h2 id="format-title">GIF로 변환할 수 있는 동영상 형식</h2>
+      <ul class="formats" id="format-row"></ul>
+    </section>
+
+    <section class="section section--video" id="videos">
+      <div class="section__head">
+        <p class="section__kicker">동영상만 올릴 수 있습니다</p>
+        <h2>동영상 작업 영역</h2>
+        <p>영역마다 영상 하나입니다. 30FPS, 구간 최대 20초, 파일 최대 5GB입니다.</p>
+      </div>
+      <div id="lanes"></div>
+      <button type="button" class="btn btn--ghost add-area" id="add-lane">작업 영역 추가</button>
+    </section>
+
+    <section class="section section--image" id="images">
+      <div class="section__head">
+        <p class="section__kicker">이미지만 올릴 수 있습니다</p>
+        <h2>이미지 여러 장으로 GIF</h2>
+        <p>사진을 순서대로 이어 GIF로 만듭니다. 배속과 용량은 동영상과 같고, 역재생은 없습니다.</p>
+      </div>
+      <div id="image-lanes"></div>
+      <button type="button" class="btn btn--ghost add-area" id="add-image-lane">작업 영역 추가</button>
+    </section>
+
+    <section class="section section--gif" id="gifs">
+      <div class="section__head">
+        <p class="section__kicker">GIF만 올릴 수 있습니다</p>
+        <h2>GIF를 동영상으로</h2>
+        <p>GIF만 받아서 동영상으로 바꿉니다.</p>
+      </div>
+      <div id="gif-lanes"></div>
+      <button type="button" class="btn btn--ghost add-area" id="add-gif-lane">작업 영역 추가</button>
+    </section>
+
+    <section class="section section--dock" id="done">
+      <div class="section__head">
+        <h2>완료된 파일</h2>
+        <p>끝난 파일을 골라 받거나 목록에서 뺄 수 있습니다.</p>
+      </div>
+      <div class="dock__bar">
+        <label class="check"><input type="checkbox" id="check-all"> 모두 선택</label>
+        <button type="button" class="btn" id="download-selected">선택 다운로드</button>
+        <button type="button" class="btn btn--download" id="download-all">전체 다운로드</button>
+        <button type="button" class="btn btn--ghost" id="remove-selected">선택 빼기</button>
+      </div>
+      <div id="dock-list" class="dock__list"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a class="kmou-link" href="https://www.kmou.ac.kr/" target="_blank" rel="noopener noreferrer" title="국립한국해양대학교 홈페이지">
+      <img src="kmou.png" alt="국립한국해양대학교">
+    </a>
+  </footer>
+
+  <div class="modal" id="download-modal" hidden>
+    <div class="modal__card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <h2 id="modal-title">다운로드</h2>
+      <p class="modal__lead" id="modal-lead">완성된 GIF를 다운로드할까요?</p>
+      <div class="modal__previews" id="modal-previews"></div>
+      <p class="modal__note">확인하는 동안 완성본을 반복해서 보여 줍니다. 이름은 바꿀 수 있고 확장자는 그대로 둡니다.</p>
+      <div class="modal__actions">
+        <button type="button" class="btn btn--ghost" id="modal-no">아니오</button>
+        <button type="button" class="btn btn--download" id="modal-yes">네</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="vendor/ffmpeg.min.js"></script>
+  <script>var exports = {};</script>
+  <script src="vendor/gifenc.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
